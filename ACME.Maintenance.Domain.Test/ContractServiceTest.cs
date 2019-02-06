@@ -1,6 +1,7 @@
 ﻿using System;
 using ACME.Maintenance.Domain.DTO;
 using ACME.Maintenance.Domain.Interfaces;
+using ACME.Maintenance.Domain.Exceptions;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -12,8 +13,9 @@ namespace ACME.Maintenance.Domain.Test
         private IContractRepository _contractRepository;
         private ContractService _contractService;
 
-        private const string validContractId = "CONTRACTID";
-        private const string expiredContractId = "EXPIREDCONTRACTID";
+        private const string ValidContractId = "CONTRACTID";
+        private const string ExpiredContractId = "EXPIREDCONTRACTID";
+        private const string InvalidContractId = "INVALIDCONTRACTID";
 
         [TestInitialize]
         public void Initialize()
@@ -25,19 +27,22 @@ namespace ACME.Maintenance.Domain.Test
             _contractRepository = A.Fake<IContractRepository>();
             _contractService = new ContractService(_contractRepository);
 
-            A.CallTo(() => _contractRepository.GetById(validContractId))
+            A.CallTo(() => _contractRepository.GetById(ValidContractId))
                 .Returns(new ContractDto
                 {
-                    ContractId = validContractId,
+                    ContractId = ValidContractId,
                     ExpirationDate = DateTime.Now.AddDays(1)
                 });
 
-            A.CallTo(() => _contractRepository.GetById(expiredContractId))
+            A.CallTo(() => _contractRepository.GetById(ExpiredContractId))
                 .Returns(new ContractDto
                 {
-                    ContractId = expiredContractId,
+                    ContractId = ExpiredContractId,
                     ExpirationDate = DateTime.Now.AddDays(-1)
                 });
+
+            A.CallTo(() => _contractRepository.GetById(InvalidContractId))
+                .Throws<ContractNotFoundException>();
 
             AutoMapper.Mapper.Initialize(cfg => cfg.CreateMap<ContractDto, Contract>());
 
@@ -52,22 +57,29 @@ namespace ACME.Maintenance.Domain.Test
             //Arrange - All necessary pre-conditions and inputs 
             
             //Act - Act on the object or method under test
-            Contract contract = _contractService.GetById(validContractId);
+            Contract contract = _contractService.GetById(ValidContractId);
 
             //Assert - Test for the expected result
             Assert.IsInstanceOfType(contract, typeof(Contract));
             Assert.IsTrue(contract.ExpirationDate > DateTime.Now);
-            Assert.AreEqual(validContractId, contract.ContractId);
+            Assert.AreEqual(ValidContractId, contract.ContractId);
         }
 
         [TestMethod]
         public void GetById_ExpiredContractId_ReturnsExpiredContract()
         {
-            Contract contract = _contractService.GetById(expiredContractId);
+            Contract contract = _contractService.GetById(ExpiredContractId);
 
             Assert.IsInstanceOfType(contract, typeof(Contract));
             Assert.IsTrue(DateTime.Now > contract.ExpirationDate);
-            Assert.AreEqual(expiredContractId, contract.ContractId);
+            Assert.AreEqual(ExpiredContractId, contract.ContractId);
+        }
+
+        [TestMethod,ExpectedException(typeof(ContractNotFoundException))]
+        public void GetById_InvalidContractId_ThrowsException()
+        {
+            //Act
+            var contract = _contractService.GetById(InvalidContractId);
         }
     }
 }

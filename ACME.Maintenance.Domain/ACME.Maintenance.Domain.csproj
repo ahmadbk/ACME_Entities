@@ -50,6 +50,7 @@
     <Compile Include="Contract.cs" />
     <Compile Include="ContractService.cs" />
     <Compile Include="DTO\ContractDto.cs" />
+    <Compile Include="Exceptions\ContractNotFoundException.cs" />
     <Compile Include="Interfaces\IContractRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
