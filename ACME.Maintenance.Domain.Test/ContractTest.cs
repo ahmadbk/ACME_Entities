@@ -17,6 +17,10 @@ namespace ACME.Maintenance.Domain.Test
         [TestInitialize]
         public void Initialize()
         {
+            // All the setup needs to happen here
+            // Even the auto mapping needs to be setup here
+            // Initialize serves as the "composition route"
+
             _contractRepository = A.Fake<IContractRepository>();
 
             A.CallTo(() => _contractRepository.GetById(validContractId))
@@ -32,6 +36,8 @@ namespace ACME.Maintenance.Domain.Test
                     ContractId = expiredContractId,
                     ExpirationDate = DateTime.Now.AddDays(-1)
                 });
+
+            AutoMapper.Mapper.Initialize(cfg => cfg.CreateMap<ContractDto, Contract>());
         }
 
         [TestMethod]

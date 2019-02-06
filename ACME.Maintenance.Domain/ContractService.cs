@@ -1,4 +1,5 @@
-﻿using ACME.Maintenance.Domain.Interfaces;
+﻿using ACME.Maintenance.Domain.DTO;
+using ACME.Maintenance.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,15 +26,19 @@ namespace ACME.Maintenance.Domain
             //2. Call the FindByID method of the persistence 
             //   layer and pass the contractId
             var contractDto = _contractRepository.GetById(contractId);
-        
+
 
             //3. Receive the data back from that function and
             //   populate my properties.... similar to this,
             //   but with real data
 
-            var contract = new Contract();
-            contract.ContractId = contractDto.ContractId;
-            contract.ExpirationDate = contractDto.ExpirationDate;
+            //var contract = new Contract();
+            //contract.ContractId = contractDto.ContractId;
+            //contract.ExpirationDate = contractDto.ExpirationDate;
+
+            var contract = AutoMapper.Mapper.Map<ContractDto, Contract>(contractDto);
+            AutoMapper.Mapper.Reset();
+
             return contract;
 
         }

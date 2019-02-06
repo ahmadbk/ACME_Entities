@@ -14,7 +14,6 @@ namespace ACME.Maintenance.Persistence
         {
             var contractDto = new ContractDto();
 
-
             if(contractId == "CONTRACTID")
             {
                 contractDto.ExpirationDate = DateTime.Now.AddDays(1);
