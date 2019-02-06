@@ -14,12 +14,20 @@ namespace ACME.Maintenance.Persistence
         {
             var contractDto = new ContractDto();
 
+
+            if(contractId == "CONTRACTID")
+            {
+                contractDto.ExpirationDate = DateTime.Now.AddDays(1);
+            }
+            else if(contractId == "EXPIREDCONTRACTID")
+            {
+                contractDto.ExpirationDate = DateTime.Now.AddDays(-1);
+            }
             // stubbed... ultimately, it will go out to the 
             // database and retrieve the given contract
             // record based on contractId
 
             contractDto.ContractId = contractId;
-            contractDto.ExpirationDate = DateTime.Now.AddDays(1);
             return contractDto;
         }
 

@@ -32,8 +32,8 @@ namespace ACME.Maintenance.Domain
             //   but with real data
 
             var contract = new Contract();
-            contract.ContractId = contractId;
-            contract.ExpirationDate = DateTime.Now.AddDays(1);
+            contract.ContractId = contractDto.ContractId;
+            contract.ExpirationDate = contractDto.ExpirationDate;
             return contract;
 
         }
