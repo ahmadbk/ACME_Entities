@@ -3,7 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACME.Maintenance.Domain", "ACME.Maintenance.Domain\ACME.Maintenance.Domain.csproj", "{A26A0F21-ACCD-43D3-881A-4304F53154A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACME.Maintenance.Domain.Test", "ACME.Maintenance.Domain.Test\ACME.Maintenance.Domain.Test.csproj", "{18AF33C8-BD3E-4D4D-87B2-B67C58AAFD18}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A26A0F21-ACCD-43D3-881A-4304F53154A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A26A0F21-ACCD-43D3-881A-4304F53154A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A26A0F21-ACCD-43D3-881A-4304F53154A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A26A0F21-ACCD-43D3-881A-4304F53154A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18AF33C8-BD3E-4D4D-87B2-B67C58AAFD18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18AF33C8-BD3E-4D4D-87B2-B67C58AAFD18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18AF33C8-BD3E-4D4D-87B2-B67C58AAFD18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18AF33C8-BD3E-4D4D-87B2-B67C58AAFD18}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
