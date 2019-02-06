@@ -60,6 +60,10 @@
       <Project>{a26a0f21-accd-43d3-881a-4304f53154a9}</Project>
       <Name>ACME.Maintenance.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ACME.Maintenance.Persistence\ACME.Maintenance.Persistence.csproj">
+      <Project>{b479c196-b4cb-4904-9624-6e03d6767131}</Project>
+      <Name>ACME.Maintenance.Persistence</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

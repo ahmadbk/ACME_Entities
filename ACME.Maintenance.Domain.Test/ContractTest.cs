@@ -1,4 +1,5 @@
 ﻿using System;
+using ACME.Maintenance.Persistence;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ACME.Maintenance.Domain.Test
@@ -9,7 +10,8 @@ namespace ACME.Maintenance.Domain.Test
         [TestMethod]
         public void Contract_ValidContractId_ReturnsContract()
         {
-            var contractService = new ContractService();
+            var contractRepository = new ContractRepository();
+            var contractService = new ContractService(contractRepository);
             Contract contract = contractService.GetById("CONTRACTID");
 
             Assert.IsInstanceOfType(contract, typeof(Contract));

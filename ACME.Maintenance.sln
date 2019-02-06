@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACME.Maintenance.Domain", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACME.Maintenance.Domain.Test", "ACME.Maintenance.Domain.Test\ACME.Maintenance.Domain.Test.csproj", "{18AF33C8-BD3E-4D4D-87B2-B67C58AAFD18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACME.Maintenance.Persistence", "ACME.Maintenance.Persistence\ACME.Maintenance.Persistence.csproj", "{B479C196-B4CB-4904-9624-6E03D6767131}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{18AF33C8-BD3E-4D4D-87B2-B67C58AAFD18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18AF33C8-BD3E-4D4D-87B2-B67C58AAFD18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18AF33C8-BD3E-4D4D-87B2-B67C58AAFD18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B479C196-B4CB-4904-9624-6E03D6767131}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B479C196-B4CB-4904-9624-6E03D6767131}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B479C196-B4CB-4904-9624-6E03D6767131}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B479C196-B4CB-4904-9624-6E03D6767131}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

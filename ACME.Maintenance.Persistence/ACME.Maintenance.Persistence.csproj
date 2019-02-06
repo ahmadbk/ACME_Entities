@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A26A0F21-ACCD-43D3-881A-4304F53154A9}</ProjectGuid>
+    <ProjectGuid>{B479C196-B4CB-4904-9624-6E03D6767131}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ACME.Maintenance.Domain</RootNamespace>
-    <AssemblyName>ACME.Maintenance.Domain</AssemblyName>
+    <RootNamespace>ACME.Maintenance.Persistence</RootNamespace>
+    <AssemblyName>ACME.Maintenance.Persistence</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,11 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contract.cs" />
-    <Compile Include="ContractService.cs" />
-    <Compile Include="DTO\ContractDto.cs" />
-    <Compile Include="Interfaces\IContractRepository.cs" />
+    <Compile Include="ContractRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ACME.Maintenance.Domain\ACME.Maintenance.Domain.csproj">
+      <Project>{a26a0f21-accd-43d3-881a-4304f53154a9}</Project>
+      <Name>ACME.Maintenance.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
