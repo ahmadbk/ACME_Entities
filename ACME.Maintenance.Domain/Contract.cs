@@ -11,11 +11,5 @@ namespace ACME.Maintenance.Domain
         public string ContractId { get; set; }
         public DateTime ExpirationDate { get; set; }
 
-        public void FindById(string contractId)
-        {
-            this.ContractId = contractId;
-            this.ExpirationDate = DateTime.Now.AddDays(1);
-        }
-
     }
 }

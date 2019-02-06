@@ -9,10 +9,12 @@ namespace ACME.Maintenance.Domain.Test
         [TestMethod]
         public void Contract_ValidContractId_ReturnsContract()
         {
-            var contract = new Contract();
-            contract.FindById("CONTRACTID");
-            Assert.IsTrue(contract.ExpirationDate > DateTime.Now);
+            var contractService = new ContractService();
+            Contract contract = contractService.GetById("CONTRACTID");
 
+            Assert.IsInstanceOfType(contract, typeof(Contract));
+            Assert.IsTrue(contract.ExpirationDate > DateTime.Now);
+            Assert.AreEqual("CONTRACTID", contract.ContractId);
         }
     }
 }
