@@ -85,5 +85,32 @@ namespace ACME.Maintenance.Domain.Test
 
             //Assert
         }
+
+
+        /*
+        [TestMethod]
+        public void addOrderItem_validPart_addsOrderItem()
+        {
+            //Arrange
+            var orderService = new OrderService();
+            var contractService = new ContractService(_contractRepository);
+            var contract = contractService.GetById(ExpiredContractId);
+            var order = orderService.CreateOrder(contract);
+
+            var partService = new PartService();
+            var part = partService.GetPartById(ValidPartId);
+
+            //Act
+            var orderItem = orderService.AddOrderItem(order, part, quantity);
+
+            //Assert
+            Assert.IsInstanceOfType(orderItem, typeof(OrderItem));
+            Assert.AreEqual(orderItem.Product, product);
+            Assert.AreEqual(order.OrderItemTotal, 100.0);
+
+        }
+        */
+
+
     }
 }

@@ -50,13 +50,17 @@
     <Compile Include="Contract.cs" />
     <Compile Include="ContractService.cs" />
     <Compile Include="DTO\ContractDto.cs" />
+    <Compile Include="DTO\PartDto.cs" />
     <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Exceptions\ContractNotFoundException.cs" />
     <Compile Include="Exceptions\ExpiredContractException.cs" />
     <Compile Include="Interfaces\IContractRepository.cs" />
+    <Compile Include="Interfaces\IPartServiceRepository.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderItem.cs" />
     <Compile Include="OrderService.cs" />
+    <Compile Include="Part.cs" />
+    <Compile Include="PartService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
