@@ -10,9 +10,26 @@ namespace ACME.Maintenance.Domain.Test
         private const string ValidContractId = "VALIDCONTRACTID";
         private const double ValidPartPrice = 50.0;
 
+        private OrderService _orderService;
+        private Order _order;
+
+        private Contract _contract = new Contract
+        {
+            ContractId = ValidContractId,
+            ExpirationDate = DateTime.Now
+        };
+
+        private Part _part = new Part()
+        {
+            PartId = ValidPartId,
+            Price = ValidPartPrice
+        };
+
         [TestInitialize]
         public void Initialize()
         {
+            _orderService = new OrderService();
+            _order = _orderService.CreateOrder(_contract);
 
         }
 
@@ -20,37 +37,20 @@ namespace ACME.Maintenance.Domain.Test
         public void AddOrderItem_ValidOrderItem_AddsOrderItem()
         {
             //Arrange
-            var orderService = new OrderService();
-
-            var contract = new Contract
-            {
-                ContractId = ValidContractId,
-                ExpirationDate = DateTime.Now
-            };
-
-            var order = orderService.CreateOrder(contract);
-
-            var part = new Part()
-            {
-                PartId = ValidPartId,
-                Price = ValidPartPrice
-            };
-
             var orderItem = new OrderItem()
             {
-                Part = part,
-                Price = part.Price,
+                Part = _part,
+                Price = _part.Price,
                 Quantity = 1,
-                LineTotal = part.Price * 1
+                LineTotal = _part.Price * 1
             };
 
-
             //Act
-            order.AddOrderItem(orderItem);
+            _order.AddOrderItem(orderItem);
 
             //Assert
-            Assert.AreEqual(order.OrderItemCount,1);
-            Assert.AreEqual(order.Subtotal, ValidPartPrice);
+            Assert.AreEqual(_order.OrderItemCount,1);
+            Assert.AreEqual(_order.Subtotal, ValidPartPrice);
         }
     }
 }
