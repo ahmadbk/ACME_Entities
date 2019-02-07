@@ -21,8 +21,14 @@ namespace ACME.Maintenance.Domain
         {
             var partDto = _partServiceRepository.GetById(partId);
 
-            var part = AutoMapper.Mapper.Map<PartDto, Part>(partDto);
-            AutoMapper.Mapper.Reset();
+            //The auto mapper is giving issues thus mapped it manually
+            Part part = new Part();
+            part.PartId = partDto.PartId;
+            part.Price = partDto.Price;
+            
+
+            //var part = AutoMapper.Mapper.Map<PartDto, Part>(partDto);
+            //AutoMapper.Mapper.Reset();
 
             return part;
         }

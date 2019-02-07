@@ -1,4 +1,5 @@
 ﻿using ACME.Maintenance.Domain.DTO;
+using ACME.Maintenance.Domain.Exceptions;
 using ACME.Maintenance.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,10 @@ namespace ACME.Maintenance.Persistence
             if (partId == "VALIDPARTID")
             {
                 partDto.Price = 50.0;
+            }
+            else if (partId == "INVALIDPARTID")
+            {
+                throw new PartNotFoundException();
             }
 
             partDto.PartId = partId;

@@ -14,9 +14,16 @@ namespace ACME.Maintenance.Domain.Test
     {
         private IContractRepository _contractRepository;
         private ContractService _contractService;
+        private OrderService _orderService;
+        private IPartServiceRepository _partServiceRepository;
+        private PartService _partService;
 
         private const string ValidContractId = "CONTRACTID";
         private const string ExpiredContractId = "EXPIREDCONTRACTID";
+
+        private const string ValidPartId = "VALIDPARTID";
+        private const string InvalidPartId = "INVALIDPARTID";
+        private const double ValidPartPrice = 50.0;
 
         [TestInitialize]
         public void Initialize()
@@ -27,6 +34,11 @@ namespace ACME.Maintenance.Domain.Test
 
             _contractRepository = A.Fake<IContractRepository>();
             _contractService = new ContractService(_contractRepository);
+
+            _partServiceRepository = A.Fake<IPartServiceRepository>();
+            _partService = new PartService(_partServiceRepository);
+
+            _orderService = new OrderService();
 
             A.CallTo(() => _contractRepository.GetById(ValidContractId))
                 .Returns(new ContractDto
@@ -42,9 +54,20 @@ namespace ACME.Maintenance.Domain.Test
                     ExpirationDate = DateTime.Now.AddDays(-1)
                 });
 
-            AutoMapper.Mapper.Reset();
-            AutoMapper.Mapper.Initialize(cfg => cfg.CreateMap<ContractDto, Contract>());
+            A.CallTo(() => _partServiceRepository.GetById(ValidPartId))
+                .Returns(new PartDto
+                {
+                    PartId = ValidPartId,
+                    Price = ValidPartPrice
+                });
 
+            AutoMapper.Mapper.Reset();
+            AutoMapper.Mapper.Initialize(
+                cfg =>
+                {
+                    cfg.CreateMap<ContractDto, Contract>();
+                    cfg.CreateMap<PartDto, Part>();
+                });
         }
 
 
@@ -52,13 +75,10 @@ namespace ACME.Maintenance.Domain.Test
         public void CreateOrder_ValidContract_CreatesNewOrder()
         {
             //Arrange
-            var orderService = new OrderService();
-            var contractService = new ContractService(_contractRepository);
-            var contract = contractService.GetById(ValidContractId);
-
+            var contract = _contractService.GetById(ValidContractId);
 
             //Act
-            var newOrder = orderService.CreateOrder(contract);
+            var newOrder = _orderService.CreateOrder(contract);
 
             //Assert
             Assert.IsInstanceOfType(newOrder, typeof(Order));
@@ -67,7 +87,7 @@ namespace ACME.Maintenance.Domain.Test
             Assert.IsTrue(Guid.TryParse(newOrder.OrderId, out guidOut));
             //Assert.AreEqual(newOrder.OrderId, OrderId);
             Assert.AreEqual(newOrder.Status, OrderStatus.New);
-            Assert.IsInstanceOfType(newOrder.OrderItems, typeof(List<OrderItem>));
+            Assert.IsInstanceOfType(newOrder.Items, typeof(IReadOnlyList<OrderItem>));
 
         }
 
@@ -75,42 +95,34 @@ namespace ACME.Maintenance.Domain.Test
         public void CreateOrder_ExpiredContract_ThrowsException()
         {
             //Arrange
-            var orderService = new OrderService();
-            var contractService = new ContractService(_contractRepository);
-            var contract = contractService.GetById(ExpiredContractId);
-
+            var contract = _contractService.GetById(ExpiredContractId);
 
             //Act
-            var newOrder = orderService.CreateOrder(contract);
+            var newOrder = _orderService.CreateOrder(contract);
 
             //Assert
         }
 
 
-        /*
+        
         [TestMethod]
-        public void addOrderItem_validPart_addsOrderItem()
+        public void CreateOrderItem_validPart_addsOrderItem()
         {
             //Arrange
-            var orderService = new OrderService();
-            var contractService = new ContractService(_contractRepository);
-            var contract = contractService.GetById(ExpiredContractId);
-            var order = orderService.CreateOrder(contract);
+            var contract = _contractService.GetById(ValidContractId);
+            var order = _orderService.CreateOrder(contract);
 
-            var partService = new PartService();
-            var part = partService.GetPartById(ValidPartId);
+            var part = _partService.GetById(ValidPartId);
+            var quantity = 1;
 
             //Act
-            var orderItem = orderService.AddOrderItem(order, part, quantity);
+            var orderItem = _orderService.CreateOrderItem(part, quantity);
 
             //Assert
-            Assert.IsInstanceOfType(orderItem, typeof(OrderItem));
-            Assert.AreEqual(orderItem.Product, product);
-            Assert.AreEqual(order.OrderItemTotal, 100.0);
-
+            Assert.AreEqual(orderItem.Part, part);
+            Assert.AreEqual(orderItem.Quantity, quantity);
+            Assert.AreEqual(orderItem.Price, ValidPartPrice);
+            Assert.AreEqual(orderItem.LineTotal, quantity * ValidPartPrice);
         }
-        */
-
-
     }
 }

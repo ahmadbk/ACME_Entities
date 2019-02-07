@@ -24,6 +24,19 @@ namespace ACME.Maintenance.Domain
 
             return order;
         }
+
+        public OrderItem CreateOrderItem(Part part, int quantity)
+        {
+            var orderItem = new OrderItem
+            {
+                Part = part,
+                Quantity = quantity,
+                Price = part.Price,
+                LineTotal = quantity * part.Price
+            };
+
+            return orderItem;
+        }
         
     }
 }

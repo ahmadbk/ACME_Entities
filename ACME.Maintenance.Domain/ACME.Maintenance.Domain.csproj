@@ -54,6 +54,7 @@
     <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Exceptions\ContractNotFoundException.cs" />
     <Compile Include="Exceptions\ExpiredContractException.cs" />
+    <Compile Include="Exceptions\PartNotFoundException.cs" />
     <Compile Include="Interfaces\IContractRepository.cs" />
     <Compile Include="Interfaces\IPartServiceRepository.cs" />
     <Compile Include="Order.cs" />
