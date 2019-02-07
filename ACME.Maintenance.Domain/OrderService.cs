@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ACME.Maintenance.Domain.Enums;
+using ACME.Maintenance.Domain.Exceptions;
 
 namespace ACME.Maintenance.Domain
 {
@@ -11,12 +12,18 @@ namespace ACME.Maintenance.Domain
     {
         public Order CreateOrder(Contract contract)
         {
-            var order = new Order { 
-                OrderId = Guid.NewGuid().ToString(), 
-                Status = OrderStatus.New 
+            if(contract.ExpirationDate < DateTime.Now)
+                throw new ExpiredContractException();
+
+
+            var order = new Order
+            {
+                OrderId = Guid.NewGuid().ToString(),
+                Status = OrderStatus.New
             };
 
             return order;
-        } 
+        }
+        
     }
 }

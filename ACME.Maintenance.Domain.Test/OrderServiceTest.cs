@@ -42,13 +42,14 @@ namespace ACME.Maintenance.Domain.Test
                     ExpirationDate = DateTime.Now.AddDays(-1)
                 });
 
-            //AutoMapper.Mapper.Initialize(cfg => cfg.CreateMap<ContractDto, Contract>());
+            AutoMapper.Mapper.Reset();
+            AutoMapper.Mapper.Initialize(cfg => cfg.CreateMap<ContractDto, Contract>());
 
         }
 
 
         [TestMethod]
-        public void CreatOrder_ValidContract_CreatesNewOrder()
+        public void CreateOrder_ValidContract_CreatesNewOrder()
         {
             //Arrange
             var orderService = new OrderService();
@@ -68,6 +69,21 @@ namespace ACME.Maintenance.Domain.Test
             Assert.AreEqual(newOrder.Status, OrderStatus.New);
             Assert.IsInstanceOfType(newOrder.OrderItems, typeof(List<OrderItem>));
 
+        }
+
+        [TestMethod,ExpectedException(typeof(ExpiredContractException))]
+        public void CreateOrder_ExpiredContract_ThrowsException()
+        {
+            //Arrange
+            var orderService = new OrderService();
+            var contractService = new ContractService(_contractRepository);
+            var contract = contractService.GetById(ExpiredContractId);
+
+
+            //Act
+            var newOrder = orderService.CreateOrder(contract);
+
+            //Assert
         }
     }
 }

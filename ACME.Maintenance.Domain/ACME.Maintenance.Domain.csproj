@@ -52,6 +52,7 @@
     <Compile Include="DTO\ContractDto.cs" />
     <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Exceptions\ContractNotFoundException.cs" />
+    <Compile Include="Exceptions\ExpiredContractException.cs" />
     <Compile Include="Interfaces\IContractRepository.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderItem.cs" />
